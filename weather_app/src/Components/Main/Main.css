@@ -1,6 +1,4 @@
 main {
    display: flex;
-   height: 600px;
-   background-color: grey;
    align-content: flex-start;
 }

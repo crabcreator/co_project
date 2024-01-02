@@ -163,16 +163,19 @@ header {
    list-style: none;
    line-height: auto;
 }
-.cities-list-el > a {
+.cities-list-el > button {
    display: flex;
-   text-decoration: none;
+   border: 0;
+   width: 100%;
+   background-color: transparent;
    padding: 12px 0 12px 10px;
    color: #000;
    font-size: 16px;
    font-weight: 600;
    transition-duration: 400ms;
+   cursor: pointer;
 }
-.cities-list-el > a:hover {
+.cities-list-el > button:hover {
    color: #007CEF;
    background-color: rgba(208, 232, 247, 0.41);
 }
@@ -231,15 +234,17 @@ header {
    align-self: center;
    list-style: none;
 }
-.lang-list a {
-   text-decoration: none;
+.lang-list button {
    color: #000;
+   border: 0;
+   background-color: transparent;
    font-size: 14px;
    font-weight: 600;
    padding: 10px;
    transition-duration: 400ms;
+   cursor: pointer;
 }
-.lang-list a:hover {
+.lang-list button:hover {
    color: #007CEF;
 }
 .active {

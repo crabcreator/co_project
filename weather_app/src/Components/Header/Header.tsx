@@ -1,34 +1,52 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import { CityContext, cities } from "../../Contexts/CityContext.ts";
+import { LangContext, langs } from "../../Contexts/LangContext.ts";
 import {Link} from "react-router-dom";
 import "./Header.css";
 
-export default function Header() {
+export default function Header( { updateCityContext, updateLangContext } ) {
+    const city:string | null = useContext(CityContext);
+    const lang:string | null = useContext(LangContext)
+
     const [searchIsOpen, setSearchOpen] = useState(false);
     const [langIsOpen, setLangOpen] = useState(false);
+    // const [currentCity, setCurrentCity] = useState<String>(city==="" ? "Вибрати місто" : "d");
+    // const [currentLang, setCurrentLang] = useState("UA");
 
-    let menuRef = useRef(null);
-    let langRef = useRef(null);
+    // console.log(cities.ukraine[0])
 
+    let menuRef = useRef<HTMLDivElement>(null);
+    let langRef = useRef<HTMLDivElement>(null);
+    
     useEffect(() => {
-        let handler = (e:React.MouseEvent<HTMLElement>) => {
+        let handler = (e:React.MouseEvent<HTMLElement> & {target: HTMLElement}) => {
             if(!menuRef.current?.contains(e.target)) {
                 setSearchOpen(false);
             }
         };
-        document.addEventListener("mousedown", handler)
+        document.addEventListener("mousedown", handler as any);
     });
     useEffect(() => {
-        let handler = (e:React.MouseEvent<HTMLElement>) => {
+        let handler = (e:React.MouseEvent<HTMLElement> & {target: HTMLElement}) => {
             if(!langRef.current?.contains(e.target)) {
                 setLangOpen(false);
             }
         };
-        document.addEventListener("mousedown", handler)
+        document.addEventListener("mousedown", handler as any);
     });
 
-    return (
+    const changeCity:any = (e:React.MouseEvent<HTMLElement> & {target: HTMLElement}) => {
+        setSearchOpen(false);
+        updateCityContext(e.target.id);
+    }
+    const changeLang:any = (e:React.MouseEvent<HTMLElement> & {target: HTMLElement}) => {
+        setLangOpen(false);
+        updateLangContext(e.target.id);
+        console.log(e.target.id);
+    }
 
+    return (
         <div className="navigation">
             <header>
                 <div className="burger">
@@ -42,7 +60,7 @@ export default function Header() {
                         <div className="location-sign">
                             <img src="/img/header/location-sign.png" alt="" />
                         </div>
-                        <span className="select-city">Select city</span>
+                        <span className="select-city">{city==="" ? "Вибрати місто" : city}</span>
                         <div className="drop-arrow">
                             <img src="/img/header/menu-drop-arrow.png" alt="" />
                         </div>
@@ -59,8 +77,9 @@ export default function Header() {
                         <div className="previous-cities">
                             <span>Ви нещодавно дивилися</span>
                             <ul className="cities-list">
-                                <li className="cities-list-el"><Link to="/">Харків</Link></li>
-                                <li className="cities-list-el"><Link to="/">Київ</Link></li>
+                                {cities.map((el, index) => (
+                                    <li key={el} className="cities-list-el"><button onClick={changeCity} id={String(index)}>{el}</button></li>
+                                ))}
                             </ul>
                         </div>
                     </div>
@@ -69,24 +88,20 @@ export default function Header() {
                     <div className="earth-sign">
                         <img src="/img/header/earth.png" alt=""/>
                     </div>
-                    <span className="selected-lang">UA</span>
+                    <span className="selected-lang">{lang}</span>
                     <div className="drop-arrow">
                         <img src="/img/header/menu-drop-arrow.png" alt="" />
                     </div>
                 </div>
                 <div className={`dropdown-lang ${langIsOpen ? "active" : ""}`} ref={langRef}>
                     <ul className="lang-list">
-                        <li className="lang-list-el"><Link to="/">EN</Link></li>
-                        <li className="lang-list-el"><Link to="/">DE</Link></li>
-                        <li className="lang-list-el"><Link to="/">NE</Link></li>
-                        <li className="lang-list-el"><Link to="/">FR</Link></li>
-                        <li className="lang-list-el"><Link to="/">FR</Link></li>
-                        <li className="lang-list-el"><Link to="/">FR</Link></li>
-                        <li className="lang-list-el"><Link to="/">FR</Link></li>
+                        {langs.map((el, index) => (
+                            <li key={el} className="lang-list-el"><button id={String(index)} onClick={changeLang}>{el}</button></li>
+                        ))}
                     </ul>
                 </div>
             </header>
             <div className="date-range"></div>
         </div>
-    )
+    );
 }
