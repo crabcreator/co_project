@@ -21,7 +21,9 @@ export default function Header() {
             }
         };
         document.addEventListener("mousedown", handler as any);
-    });
+        return() => document.removeEventListener("mousedown", handler as any);
+        
+    }, []);
     useEffect(() => {
         let handler = (e:React.MouseEvent<HTMLElement> & {target: HTMLElement}) => {
             if(!langRef.current?.contains(e.target)) {
@@ -29,7 +31,8 @@ export default function Header() {
             }
         };
         document.addEventListener("mousedown", handler as any);
-    });
+        return() => document.removeEventListener("mousedown", handler as any);
+    }, []);
 
     return (
         <div className="navigation">
