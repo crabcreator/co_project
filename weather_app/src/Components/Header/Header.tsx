@@ -31,15 +31,6 @@ export default function Header() {
         document.addEventListener("mousedown", handler as any);
     });
 
-    // const changeCity = (index) => {
-    //     setSearchOpen(false);
-    //     setCity(Number(index));
-    // }
-    // const changeLang:any = (e:React.MouseEvent<HTMLElement> & {target: HTMLElement}) => {
-    //     setLangOpen(false);
-    //     // updateLangContext(e.target.id);
-    // }
-
     return (
         <div className="navigation">
             <header>
