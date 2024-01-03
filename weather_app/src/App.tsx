@@ -1,37 +1,31 @@
 import React, {useContext, useState } from 'react'
-import { CityContext, cities } from './Contexts/CityContext.ts';
-import { LangContext, langs } from './Contexts/LangContext.ts';
+import { CityContextProvider } from './Contexts/CityContext';
+import { LangContextProvider } from './Contexts/LangContext';
 import {Outlet} from "react-router"
 import "./App.css";
-import Header from "./Components/Header/Header.tsx"
-import Footer from "./Components/Footer/Footer.tsx"
+import Header from "./Components/Header/Header"
+import Footer from "./Components/Footer/Footer"
 
 export default function App() {
-  const [currentCity, setCurrentCity] = useState<string | null>(useContext(CityContext));
-  const [currentLang, setCurrentLang] = useState<string | null>(useContext(LangContext));
+  // const [currentCity, setCurrentCity] = useState<string>(useContext(CityContext));
+  // const [currentLang, setCurrentLang] = useState<string>(useContext(LangContext));
 
-  const updateCityContext = (id:string) => {
-    if(id) {
-      setCurrentCity(cities[id]);
-      window.localStorage.setItem("CurrentCity", cities[id]);
-    }
-  };
-  const updateLangContext = (id:string) => {
-    if(id) {
-      setCurrentLang(langs[id]);
-      window.localStorage.setItem("Lang", langs[id]);
-    }
-  }
+  // const updateLangContext = (id:string) => {
+  //   if(id) {
+  //     setCurrentLang(langs[id]);
+  //     window.localStorage.setItem("Lang", langs[id]);
+  //   }
+  // }
 
   return (
-    <CityContext.Provider value={currentCity}>
-      <LangContext.Provider value={currentLang}>
+    <CityContextProvider>
+      <LangContextProvider>
         <div className="App">
-          <Header updateCityContext={updateCityContext} updateLangContext={updateLangContext} />
+          <Header />
           <Outlet />
           <Footer />
         </div>
-      </LangContext.Provider>
-    </CityContext.Provider>
+      </LangContextProvider>
+    </CityContextProvider>
   );
 }

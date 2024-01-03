@@ -1,20 +1,15 @@
-import React from "react";
-import { useState, useEffect, useRef, useContext } from "react";
-import { CityContext, cities } from "../../Contexts/CityContext.ts";
-import { LangContext, langs } from "../../Contexts/LangContext.ts";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { CityContext, cities } from "../../Contexts/CityContext";
+import { LangContext, langs } from "../../Contexts/LangContext";
 import {Link} from "react-router-dom";
 import "./Header.css";
 
-export default function Header( { updateCityContext, updateLangContext } ) {
-    const city:string | null = useContext(CityContext);
-    const lang:string | null = useContext(LangContext)
+export default function Header() {
+    const {city, setCity} = useContext(CityContext);
+    const {lang, setLang} = useContext(LangContext)
 
     const [searchIsOpen, setSearchOpen] = useState(false);
     const [langIsOpen, setLangOpen] = useState(false);
-    // const [currentCity, setCurrentCity] = useState<String>(city==="" ? "Вибрати місто" : "d");
-    // const [currentLang, setCurrentLang] = useState("UA");
-
-    // console.log(cities.ukraine[0])
 
     let menuRef = useRef<HTMLDivElement>(null);
     let langRef = useRef<HTMLDivElement>(null);
@@ -36,15 +31,14 @@ export default function Header( { updateCityContext, updateLangContext } ) {
         document.addEventListener("mousedown", handler as any);
     });
 
-    const changeCity:any = (e:React.MouseEvent<HTMLElement> & {target: HTMLElement}) => {
-        setSearchOpen(false);
-        updateCityContext(e.target.id);
-    }
-    const changeLang:any = (e:React.MouseEvent<HTMLElement> & {target: HTMLElement}) => {
-        setLangOpen(false);
-        updateLangContext(e.target.id);
-        console.log(e.target.id);
-    }
+    // const changeCity = (index) => {
+    //     setSearchOpen(false);
+    //     setCity(Number(index));
+    // }
+    // const changeLang:any = (e:React.MouseEvent<HTMLElement> & {target: HTMLElement}) => {
+    //     setLangOpen(false);
+    //     // updateLangContext(e.target.id);
+    // }
 
     return (
         <div className="navigation">
@@ -78,7 +72,10 @@ export default function Header( { updateCityContext, updateLangContext } ) {
                             <span>Ви нещодавно дивилися</span>
                             <ul className="cities-list">
                                 {cities.map((el, index) => (
-                                    <li key={el} className="cities-list-el"><button onClick={changeCity} id={String(index)}>{el}</button></li>
+                                    <li key={el} className="cities-list-el"><button onClick={() => {
+                                        setCity(index);
+                                        setSearchOpen(false);
+                                    }}>{el}</button></li>
                                 ))}
                             </ul>
                         </div>
@@ -96,7 +93,10 @@ export default function Header( { updateCityContext, updateLangContext } ) {
                 <div className={`dropdown-lang ${langIsOpen ? "active" : ""}`} ref={langRef}>
                     <ul className="lang-list">
                         {langs.map((el, index) => (
-                            <li key={el} className="lang-list-el"><button id={String(index)} onClick={changeLang}>{el}</button></li>
+                            <li key={el} className="lang-list-el"><button onClick={() => {
+                                setLang(index);
+                                setLangOpen(false);
+                            }}>{el}</button></li>
                         ))}
                     </ul>
                 </div>

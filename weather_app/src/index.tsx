@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import {BrowserRouter, Route, Routes} from "react-router-dom"
 import "./index.css";
-import App from "./App.tsx";
-import Main from "./Components/Main/Main.tsx"
+import App from "./App";
+import Main from "./Components/Main/Main"
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
