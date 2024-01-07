@@ -119,6 +119,11 @@ header {
 .select-city-drop input::placeholder {
    color: #5E5E5E;
 }
+.search-results {
+   display: flex;
+   padding: 16px 0 16px 10px;
+   border-bottom: 0.3px solid #5E5E5E;
+}
 .turn-on-gps {
    display: flex;
    width: 100%;
@@ -153,17 +158,17 @@ header {
    font-weight: 500;
    margin: 0 0 8px 10px;
 }
-.cities-list {
+.last-cities-list {
    display: flex;
    flex-direction: column;
    margin: 0;
    padding: 0;
 }
-.cities-list-el {
+.last-cities-list-el {
    list-style: none;
    line-height: auto;
 }
-.cities-list-el > button {
+.last-cities-list-el > button {
    display: flex;
    border: 0;
    width: 100%;
@@ -175,7 +180,7 @@ header {
    transition-duration: 400ms;
    cursor: pointer;
 }
-.cities-list-el > button:hover {
+.last-cities-list-el > button:hover {
    color: #007CEF;
    background-color: rgba(208, 232, 247, 0.41);
 }
@@ -249,4 +254,31 @@ header {
 }
 .active {
    display: flex;
+}
+
+.res-cities-list {
+   display: flex;
+   flex-direction: column;
+   margin: 0;
+   padding: 0;
+}
+.res-cities-list-el {
+   list-style: none;
+   line-height: auto;
+}
+.res-cities-list-el > button {
+   display: flex;
+   border: 0;
+   width: 100%;
+   background-color: transparent;
+   padding: 12px 0 12px 10px;
+   color: #000;
+   font-size: 16px;
+   font-weight: 600;
+   transition-duration: 400ms;
+   cursor: pointer;
+}
+.res-cities-list-el > button:hover {
+   color: #007CEF;
+   /* background-color: rgba(208, 232, 247, 0.41); */
 }
